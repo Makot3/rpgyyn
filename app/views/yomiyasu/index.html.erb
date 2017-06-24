@@ -1,0 +1,12 @@
+<h2>あーるぴーじゃー</h2>
+ 
+<table>
+  <%= form_tag(controller:'yomiyasu', action:'index') do %>
+    <%= text_area_tag("input", 'ここにソースをはってね。ソースによっては読みやすくなるかも。', size: "80x5") %>
+    <%= submit_tag("よみやす") %>
+  <% end %>
+</table>
+<pre><%= @memo %></pre>
+
+<div class="footerArea">
+</div>
