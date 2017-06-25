@@ -20,9 +20,28 @@ class YomiyasuController < ApplicationController
     if request.post? then
       input_text = params['input'].split("\n")
       body_text = []
-
+      #arywk = []
+      
       input_text.each do |ary|
-        body_text << ary.split(',')
+        # body_text << ary.split(',')
+        arywk = Array.new
+        arywk << ary
+        if ary =~ /^......\*/
+          arywk << 'darkgray'
+        elsif ary =~ /.*BEGSR.*/ || ary =~ /.*ENDSR.*/ || ary =~ /.*EXSR.*/
+          arywk << 'red'
+        elsif ary =~ /.*WRITE.*/ || ary =~ /.*UPDAT.*/
+          arywk << 'pink'
+        elsif ary =~ /.*DOW.*/ || ary =~ /.*ENDDO.*/
+          arywk << 'darkblue'
+        elsif ary =~ /.*IFEQ.*/ || ary =~ /.*ELSE.*/ || ary =~ /.*ENDIF.*/
+          arywk << 'blue'
+        elsif ary =~ /.*Z-ADD.*/ || ary =~ /.*MOVE.*/
+          arywk << 'darkgreen'
+        else
+          arywk << 'green'
+        end
+        body_text << arywk
       end
 
       text_result =''
@@ -34,7 +53,8 @@ class YomiyasuController < ApplicationController
         <html>
         <body>
           <p>#{text_result}</p>
-          <font color='darkgray'>Inputした元データ→#{input_text}</font>
+      <!--  <p><font color='darkgray'>Inputした元データ→#{input_text}</font></p>
+          <p><font color='darkgray'>body_text→#{body_text}</font></p> -->
         </body>
         </html>
         "
