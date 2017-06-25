@@ -54,8 +54,6 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   root 'yomiyasu#show'
-  get 'yomiyasu/index', to: 'yomiyasu#index'
-  post 'yomiyasu/index', to: 'yomiyasu#index'
   get 'yomiyasu/show', to: 'yomiyasu#show'
   post 'yomiyasu/show', to: 'yomiyasu#show'
 end
