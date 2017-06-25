@@ -20,39 +20,37 @@ class YomiyasuController < ApplicationController
     if request.post? then
       input_text = params['input'].split("\n")
       body_text = []
-      #arywk = []
       
       input_text.each do |ary|
-        # body_text << ary.split(',')
         arywk = Array.new
         arywk << ary
         if ary =~ /^......\*/
-          arywk << 'darkgray'
+          arywk << '#585858'
         elsif ary =~ /.*BEGSR.*/ || ary =~ /.*ENDSR.*/ || ary =~ /.*EXSR.*/
-          arywk << 'red'
-        elsif ary =~ /.*WRITE.*/ || ary =~ /.*UPDAT.*/
-          arywk << 'pink'
+          arywk << '#58FAF4'
+        elsif ary =~ /.*WRITE.*/ || ary =~ /.*UPDAT.*/ || ary =~ /.*DELET.*/
+          arywk << '#FF4000'
+        elsif ary =~ /.*IFEQ.*/ || ary =~ /.*ELSE.*/ || ary =~ /.*ENDIF.*/ || ary =~ /.*IFNE.*/ || ary =~ /.*IFLT.*/ || ary =~ /.*IFGT.*/ || ary =~ /.*IFLE.*/ || ary =~ /.*IFGE.*/
+          arywk << '#FFFF00'
+        elsif ary =~ /.*MOVE.*/ || ary =~ /.*Z-ADD.*/
+          arywk << '#088A08'
         elsif ary =~ /.*DOW.*/ || ary =~ /.*ENDDO.*/
-          arywk << 'darkblue'
-        elsif ary =~ /.*IFEQ.*/ || ary =~ /.*ELSE.*/ || ary =~ /.*ENDIF.*/
-          arywk << 'blue'
-        elsif ary =~ /.*Z-ADD.*/ || ary =~ /.*MOVE.*/
-          arywk << 'darkgreen'
+          arywk << '#FE2EF7'
         else
-          arywk << 'green'
+          arywk << '#F2F2F2'
         end
         body_text << arywk
       end
 
       text_result =''
       body_text.each do |b|
-        text_result += "<font color='#{b[1]}'>#{b[0]}</font><br>"
+        text_result += "<font color='#{b[1]}'>#{b[0]}</font>"
       end
 
       msg = "
         <html>
-        <body>
-          <p>#{text_result}</p>
+        <body bgcolor='#2A0A22'>
+          <pre>#{text_result}</pre>
       <!--  <p><font color='darkgray'>Inputした元データ→#{input_text}</font></p>
           <p><font color='darkgray'>body_text→#{body_text}</font></p> -->
         </body>
