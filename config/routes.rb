@@ -55,4 +55,6 @@ Rails.application.routes.draw do
   #   end
   get 'yomiyasu/index', to: 'yomiyasu#index'
   post 'yomiyasu/index', to: 'yomiyasu#index'
+  get 'yomiyasu/show', to: 'yomiyasu#show'
+  post 'yomiyasu/show', to: 'yomiyasu#show'
 end

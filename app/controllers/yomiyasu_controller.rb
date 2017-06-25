@@ -16,6 +16,35 @@ class YomiyasuController < ApplicationController
     end
   end
 
+  def show
+    if request.post? then
+      input_text = params['input'].split("\n")
+      body_text = []
+
+      input_text.each do |ary|
+        body_text << ary.split(',')
+      end
+
+      text_result =''
+      body_text.each do |b|
+        text_result += "<font color='#{b[1]}'>#{b[0]}</font><br>"
+      end
+
+      msg = "
+        <html>
+        <body>
+          <p>#{text_result}</p>
+          <font color='darkgray'>Inputした元データ→#{input_text}</font>
+        </body>
+        </html>
+        "
+      render html: msg.html_safe
+    else
+     # @test = ""
+    end
+  end
+
+
   private
   def edit(src)
     ary = src.split("\n")
@@ -24,11 +53,11 @@ class YomiyasuController < ApplicationController
     ary.each do |line|
       if line =~ /^......\*/ # コメント行の場合
         if splat != 1
-          result += "がんばって" + "\n"
+          result += "がんばって！" + "\n"
           splat = 1
         end
       elsif line =~ /.*BEGSR.*/ || line =~ /.*PLIST.*/ || line =~ /.*KLIST.*/
-        result += "-" * 70 + "\n" + line
+        result += "-" * 75 + "\n" + line
         splat = 0
       else
         result += line
